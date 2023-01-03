@@ -49,13 +49,13 @@ GEM
       responders
       thread_safe (~> 0.1)
       warden (~> 1.2.3)
-    dragula-rails (3.7.0)
-      railties (>= 3.1)
     erubis (2.7.0)
     execjs (2.8.1)
     ffi (1.15.5)
     font-awesome-rails (4.7.0.8)
       railties (>= 3.2, < 8.0)
+    font-awesome-sass (6.2.1)
+      sassc (~> 2.0)
     hike (1.2.3)
     i18n (0.9.5)
       concurrent-ruby (~> 1.0)
@@ -138,9 +138,9 @@ DEPENDENCIES
   bootstrap-sass
   coffee-rails (~> 4.0.0)
   devise
-  dragula-rails
   ffi (~> 1.9, >= 1.9.10)
   font-awesome-rails
+  font-awesome-sass (~> 6.2.1)
   jbuilder (~> 1.2)
   jquery-rails
   popper_js (~> 1.12.3)

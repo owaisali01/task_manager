@@ -14,4 +14,5 @@
 //= require jquery_ujs
 //= require popper
 //* require tree .
+//= require custom
 

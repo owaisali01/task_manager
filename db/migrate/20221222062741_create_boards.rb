@@ -5,6 +5,7 @@ class CreateBoards < ActiveRecord::Migration
       t.string :type
       t.references :user, index: true
       t.references :board_section, index: true
+      t.timestamps
     end
   end
 end

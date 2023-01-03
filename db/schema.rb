@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20221222120029) do
+ActiveRecord::Schema.define(version: 20221230141334) do
 
   create_table "assigned_tasks", force: true do |t|
     t.integer "user_id"
@@ -29,11 +29,15 @@ ActiveRecord::Schema.define(version: 20221222120029) do
   add_index "board_sections", ["board_id"], name: "index_board_sections_on_board_id"
 
   create_table "boards", force: true do |t|
-    t.string  "name"
-    t.string  "type"
-    t.integer "user_id"
+    t.string   "name"
+    t.string   "board_type"
+    t.integer  "user_id"
+    t.integer  "board_section_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
+  add_index "boards", ["board_section_id"], name: "index_boards_on_board_section_id"
   add_index "boards", ["user_id"], name: "index_boards_on_user_id"
 
   create_table "comments", force: true do |t|
