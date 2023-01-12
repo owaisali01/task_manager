@@ -39,3 +39,4 @@ gem "font-awesome-sass", "~> 6.2.1"
 gem "spring"
 gem "spring-commands-rspec"
 gem 'ransack'
+gem 'kaminari', '~> 0.15.0'

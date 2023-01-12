@@ -24,12 +24,14 @@
         </tr>
       </thead>
       <tbody class="board-add">
+      <h5><%= paginate @boards %></h5>
         <% @boards.each do |board|%>
           <%= render :partial => 'boards/boards', locals: {board: board} %>
         </tr>
         <%end%>
       </tbody>
     </table>
+    <h5><%= paginate @boards %></h5>
 </div>
 
 <div class="right-bar">

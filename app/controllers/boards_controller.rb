@@ -2,7 +2,7 @@ class BoardsController < ApplicationController
   before_action :set_board_object, :only=> [:show,:edit,:update,:destroy]
   
   def index
-    @boards = Board.all
+    @boards = Board.all.page(params[:page])
   end
   def new
     @board = Board.new()
