@@ -12,10 +12,13 @@ class BoardsController < ApplicationController
   end
   def create
     @board = Board.new(board_params)
+    respond_to do |format|
     if @board.save
-      redirect_to root_path
+      format.html {redirect_to root_path}
+      format.js
     else
       render :new
+      end
     end
   end
   def edit
@@ -29,7 +32,11 @@ class BoardsController < ApplicationController
   end
   def destroy
     @board.destroy
-    redirect_to @board
+      respond_to do |format|
+      format.html { redirect_to @board }
+      format.json { head :no_content }
+      format.js   { render :layout => false }
+    end
   end
 
   private
