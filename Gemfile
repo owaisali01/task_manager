@@ -30,25 +30,13 @@ group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
   gem 'sdoc', require: false
 end
-
-# Use ActiveModel has_secure_password
-# gem 'bcrypt', '~> 3.1.7'
-
-# Use unicorn as the app server
-# gem 'unicorn'
-
-# Use Capistrano for deployment
-# gem 'capistrano', group: :development
-
-# Use debugger
-# gem 'debugger', group: [:development, :test]
-# gem 'bootstrap-sass'
-# gem 'bootstrap', '~> 4.4.1'
 gem 'bootstrap-sass'
 gem 'font-awesome-rails'
 gem 'popper_js', '~> 1.12.3'
-# gem 'dragula-rails'
 gem 'ffi', '~> 1.9', '>= 1.9.10'
 gem 'pry', '~> 0.10.3'
 gem "font-awesome-sass", "~> 6.2.1"
-
+gem "spring"
+gem "spring-commands-rspec"
+gem 'ransack'
+gem 'kaminari', '~> 0.15.0'

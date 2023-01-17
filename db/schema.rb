@@ -32,12 +32,10 @@ ActiveRecord::Schema.define(version: 20221230141334) do
     t.string   "name"
     t.string   "board_type"
     t.integer  "user_id"
-    t.integer  "board_section_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  add_index "boards", ["board_section_id"], name: "index_boards_on_board_section_id"
   add_index "boards", ["user_id"], name: "index_boards_on_user_id"
 
   create_table "comments", force: true do |t|
