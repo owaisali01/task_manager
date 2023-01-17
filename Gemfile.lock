@@ -26,6 +26,7 @@ GEM
       thread_safe (~> 0.1)
       tzinfo (~> 0.3.37)
     arel (4.0.2)
+    ast (2.4.2)
     autoprefixer-rails (9.8.6)
       execjs
     bcrypt (3.1.18)
@@ -59,6 +60,7 @@ GEM
     hike (1.2.3)
     i18n (0.9.5)
       concurrent-ruby (~> 1.0)
+    jaro_winkler (1.5.4)
     jbuilder (1.5.3)
       activesupport (>= 3.0.0)
       multi_json (>= 1.2.0)
@@ -75,6 +77,9 @@ GEM
     minitest (4.7.5)
     multi_json (1.15.0)
     orm_adapter (0.5.0)
+    parallel (1.19.2)
+    parser (3.2.0.0)
+      ast (~> 2.4.1)
     popper_js (1.12.9)
     pry (0.10.4)
       coderay (~> 1.1.0)
@@ -96,6 +101,7 @@ GEM
       activesupport (= 4.0.13)
       rake (>= 0.8.7)
       thor (>= 0.18.1, < 2.0)
+    rainbow (3.1.1)
     rake (13.0.6)
     ransack (1.8.10)
       actionpack (>= 3.0, < 5.2)
@@ -105,6 +111,20 @@ GEM
     rdoc (6.2.0)
     responders (1.1.2)
       railties (>= 3.2, < 4.2)
+    rexml (3.2.5)
+    rubocop (0.81.0)
+      jaro_winkler (~> 1.5.1)
+      parallel (~> 1.10)
+      parser (>= 2.7.0.1)
+      rainbow (>= 2.2.2, < 4.0)
+      rexml
+      ruby-progressbar (~> 1.7)
+      unicode-display_width (>= 1.4.0, < 2.0)
+    rubocop-rails (2.5.2)
+      activesupport
+      rack (>= 1.1)
+      rubocop (>= 0.72.0)
+    ruby-progressbar (1.11.0)
     sass (3.2.19)
     sass-rails (4.0.5)
       railties (>= 4.0.0, < 5.0)
@@ -138,6 +158,7 @@ GEM
     tzinfo (0.3.61)
     uglifier (4.2.0)
       execjs (>= 0.3.0, < 3)
+    unicode-display_width (1.8.0)
     warden (1.2.7)
       rack (>= 1.0)
 
@@ -159,6 +180,7 @@ DEPENDENCIES
   pry (~> 0.10.3)
   rails (= 4.0.13)
   ransack
+  rubocop-rails
   sass-rails (~> 4.0.2)
   sassc (~> 2.4.0)
   sdoc
