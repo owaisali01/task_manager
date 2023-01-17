@@ -24,10 +24,7 @@ class SubTasksController < ApplicationController
       render :edit
     end
   end
-  def delete
-    @subtask.destroy
-    redirect_to @subtask
-  end
+  def delete; end
   private
   def subtask_params
     params.require(:subtask).permit(:id,:name,:description,:status,:due_date,:task_id)

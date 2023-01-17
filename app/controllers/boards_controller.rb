@@ -5,7 +5,7 @@ class BoardsController < ApplicationController
     @boards = Board.all.page(params[:page])
   end
   def new
-    @board = Board.new()
+    @board = Board.new
   end
   def show
     @board_sections = @board.board_sections
@@ -32,9 +32,8 @@ class BoardsController < ApplicationController
   def destroy
     @board.destroy
       respond_to do |format|
-      format.html { redirect_to @board }
-      format.json { head :no_content }
       format.js   { render :layout => false }
+      format.html { redirect_to @board }
     end
   end
 

@@ -24,10 +24,7 @@ class CommentsController < ApplicationController
     else
       render :edit
   end
-  def delete
-    @comment.delete
-      redirect_to @comment
-  end
+  def delete; end
   private
   def set_comment_object
     @comment = Comment.find(params[:id])

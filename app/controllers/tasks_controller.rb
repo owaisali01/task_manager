@@ -32,10 +32,7 @@ class TasksController < ApplicationController
       render :edit
     end
   end
-  def delete
-    @task.destroy
-    redirect_to @task
-  end
+  def delete; end
   private
   def task_params
     params.require(:task).permit(:id,:name,:description,:status,:due_date,:story_point,:board_id,:board_section_id)

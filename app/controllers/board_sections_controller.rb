@@ -13,8 +13,8 @@ class BoardSectionsController < ApplicationController
     @board_section = @board.board_sections.build(board_section_params)
     respond_to do |format|
     if @board_section.save
-      format.html {redirect_to request.referer}
       format.js
+      format.html {redirect_to request.referer}
     else
       render :new
       end
@@ -28,10 +28,7 @@ class BoardSectionsController < ApplicationController
       render :edit
     end
   end
-  def delete
-    @board_section.destroy
-    redirect_to @board_section
-  end
+  def delete; end
     private
     def set_board
       @board = Board.find(params[:board_id])
