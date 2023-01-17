@@ -17,8 +17,7 @@ class CommentsController < ApplicationController
       render :new
     end
   end
-  def edit
-  end
+  def edit; end
   def update
     if @comment.update(comment_params)
       redirect_to @comment
@@ -29,7 +28,7 @@ class CommentsController < ApplicationController
     @comment.delete
       redirect_to @comment
   end
-private
+  private
   def set_comment_object
     @comment = Comment.find(params[:id])
   end

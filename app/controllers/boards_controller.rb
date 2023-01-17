@@ -21,8 +21,7 @@ class BoardsController < ApplicationController
       end
     end
   end
-  def edit
-  end
+  def edit; end
   def update
     if @board.update(board_params)
       redirect_to @board
@@ -40,11 +39,11 @@ class BoardsController < ApplicationController
   end
 
   private
-    def board_params
-      params.require(:board).permit(:id, :name, :board_type,:board_section_is)
-    end
-    def set_board_object
-      @board = Board.find(params[:id])
-    end
+  def board_params
+    params.require(:board).permit(:id, :name, :board_type,:board_section_is)
+  end
+  def set_board_object
+    @board = Board.find(params[:id])
+  end
 
 end

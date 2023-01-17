@@ -8,7 +8,7 @@ class BoardSectionsController < ApplicationController
   def new
     @board_section = @board.board_sections.build
   end
-  def show: end
+  def show; end
   def create
     @board_section = @board.board_sections.build(board_section_params)
     respond_to do |format|
@@ -20,8 +20,7 @@ class BoardSectionsController < ApplicationController
       end
     end
   end
-  def edit
-  end
+  def edit; end
   def update
     if @board_section.update(board_section_params)
       redirect_to @board_section
@@ -34,13 +33,13 @@ class BoardSectionsController < ApplicationController
     redirect_to @board_section
   end
     private
-      def set_board
-        @board = Board.find(params[:board_id])
-      end
-      def set_board_section_object
-        @board_section = BoardSection.find(params[:id]) 
-      end
-      def board_section_params
-        params.require(:board_section).permit(:id, :name, :board_type)
-      end
+    def set_board
+      @board = Board.find(params[:board_id])
+    end
+    def set_board_section_object
+      @board_section = BoardSection.find(params[:id])
+    end
+    def board_section_params
+      params.require(:board_section).permit(:id, :name, :board_type)
+    end
 end

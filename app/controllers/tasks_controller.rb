@@ -6,7 +6,7 @@ class TasksController < ApplicationController
     @q = Task.ransack(params[:q])
       respond_to do |format|
       @board_sections = BoardSection.where(id: @q.result.pluck(:board_section_id))
-      format.js # actually means: if the client ask for js -> return file.js
+      format.js
       end
   end
   def new
@@ -24,7 +24,7 @@ class TasksController < ApplicationController
       end
     end
   end
-  def edit: end  
+  def edit; end
   def update
     if @task.update(task_params)
       redirect_to @task
@@ -36,14 +36,12 @@ class TasksController < ApplicationController
     @task.destroy
     redirect_to @task
   end
-  
   private
-   
-    def task_params
-      params.require(:task).permit(:id,:name,:description,:status,:due_date,:story_point,:board_id,:board_section_id)
-    end
-    def set_task_object
-      @task = Task.find(params[:id])
-    end
+  def task_params
+    params.require(:task).permit(:id,:name,:description,:status,:due_date,:story_point,:board_id,:board_section_id)
+  end
+  def set_task_object
+    @task = Task.find(params[:id])
+  end
     
 end
