@@ -16,4 +16,3 @@
 //= require turbolinks
 //* require tree .
 //= require custom
-

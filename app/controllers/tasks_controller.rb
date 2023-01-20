@@ -1,5 +1,5 @@
 class TasksController < ApplicationController
-  before_action :set_task_object, only: %i[edit update destroy]
+  before_action :set_task_object, only: %i[ edit update destroy]
 
   def index
     @board = Board.find(params[:q][:board])
@@ -12,6 +12,14 @@ class TasksController < ApplicationController
 
   def new
     @task = Task.new
+  end
+
+  def show
+    @task = Task.find(params[:id])
+    respond_to do |format|
+      format.js
+      format.html
+    end
   end
 
   def create

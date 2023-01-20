@@ -1,0 +1,4 @@
+$('#myModal').html('<%= escape_javascript(render :partial => 'boards/task_modal', :locals => {task: @task}) %>');
+$('#task-detail-modal').modal('show')
+$('#task-detail-modal').modal('hide');
+$('#task-detail-modal').remove()
