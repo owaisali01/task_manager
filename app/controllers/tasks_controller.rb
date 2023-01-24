@@ -1,5 +1,5 @@
 class TasksController < ApplicationController
-  before_action :set_task_object, only: %i[ edit update destroy]
+  before_action :set_task, only: %i[show edit update destroy]
 
   def index
     @board = Board.find(params[:q][:board])
@@ -15,7 +15,6 @@ class TasksController < ApplicationController
   end
 
   def show
-    @task = Task.find(params[:id])
     respond_to do |format|
       format.js
       format.html
@@ -44,7 +43,14 @@ class TasksController < ApplicationController
     end
   end
 
-  def delete; end
+  def destroy
+    @task.destroy
+    respond_to do |format|
+      format.js 
+      format.html
+   
+    end
+  end
 
   private
 
@@ -52,7 +58,7 @@ class TasksController < ApplicationController
     params.require(:task).permit(:id, :name, :description, :status, :due_date, :story_point, :board_id, :board_section_id)
   end
 
-  def set_task_object
+  def set_task
     @task = Task.find(params[:id])
   end
 end

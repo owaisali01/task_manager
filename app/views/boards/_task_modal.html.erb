@@ -1,0 +1,60 @@
+<div class="modal fade task-modal-content" id="task-detail-modal" tabindex="-1" role="dialog" aria-labelledby="NewTaskModalLabel" aria-hidden="true">
+<div class="modal-dialog modal-dialog-centered modal-lg">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h4 class="modal-title" id="NewTaskModalLabel"><%= task.name%></h4>
+      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+    </div>
+    <div class="modal-body">
+      <div class="p-2">
+        <h5 class="mt-0">Description</h5>
+        <p class="text-muted mb-4"><%= task.description%></p>
+        <div class="row">
+            <div class="col md-4">
+              <div class="mb-4">
+                <h5>created at</h5>
+                  <p><%= task.created_at%></p>
+              </div>
+            </div>
+            <div class="col md-4">
+              <div class="mb-4">
+                <h5>Due Date</h5>
+                <p><%= task.due_date%></p>
+              </div>
+            </div>
+            <div class="col md-4">Asignee</div>
+          </div>
+          <ul class="nav nav-tabs nav-bordered mb-3">
+          <li class="nav-item">
+              <a href="#home-b1" data-bs-toggle="tab" aria-expanded="false" class="nav-link active">
+                  Comments
+              </a>
+          </li>
+          <li class="nav-item">
+              <a href="#profile-b1" data-bs-toggle="tab" aria-expanded="true" class="nav-link">
+                  Files
+              </a>
+          </li>
+      </ul>
+      <div class="tab-content">
+        <%= form_for Comment.new, remote: true do |f|%>
+          <%= f.text_area :description, class:'form-control-light mb-2', id:'example-textarea', placeholder:'Write message', rows:'3' %>
+          <%= f.hidden_field :task_id, :value => @task.id %>
+            <div class="text-end">
+              <div class="btn-group mb-2 ms-2 d-none d-sm-inline-block">
+              <%= f.submit class:'btn btn-primary'%>
+              </div>
+            </div>
+        <%end%>
+      </div>
+      <div class="mt-2" id="comment-add">
+        <% @task.comments&.each do |comment|%>
+          <div class="w-100">
+          <%= render :partial => 'boards/comment', locals: {comment: comment} %>
+          <%end%>
+          </div>
+      </div>
+    </div>
+  </div><!-- /.modal-content -->
+</div><!-- /.modal-dialog -->
+</div><!-- /.modal -->

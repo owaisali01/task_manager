@@ -1,5 +1,5 @@
 <div class="card mb-0" >
-  <div class="card-body p-3">
+  <div class="card-body p-3" id='task<%=task.id%>'>
     <small class="float-right text-muted"><%= task.due_date%></small>
     <span class="badge badge-secondary"><%= task.status%></span>
     <h5 class="mt-2 mb-2">
@@ -14,6 +14,11 @@
       <a href="#" class="dropdown-toggle text-muted arrow-none" data-toggle="dropdown" aria-expanded="false">
           <i class="mdi mdi-dots-vertical font-18"></i>
       </a>
+    </div>
+    <div class="mb-4">
+      <%= link_to task_path(task), method: :delete, remote: true, data: { confirm: 'Are you sure?' } do %>
+        <i class="fa fa-trash-o"></i> 
+      <% end %>
     </div>
   </div> <!-- end card-body -->
 </div>
