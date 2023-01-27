@@ -3,7 +3,7 @@
   <div class="modal-content">
     <div class="modal-header">
       <h4 class="modal-title" id="NewTaskModalLabel"><%= task.name%></h4>
-      <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
     </div>
     <div class="modal-body">
       <div class="p-2">
@@ -12,14 +12,14 @@
         <div class="row">
             <div class="col md-4">
               <div class="mb-4">
-                <h5>created at</h5>
-                  <p><%= task.created_at.strftime("%d-%b-%Y")%> <small class="text-muted"><%= task.created_at.strftime("%I:%M%p")%></small></p>
+                <h5>Created at</h5>
+                  <p><%= task&.created_at.strftime("%d-%b-%Y")%> <small class="text-muted"><%= task&.created_at.strftime("%I:%M%p")%></small></p>
               </div>
             </div>
             <div class="col md-4">
               <div class="mb-4">
                 <h5>Due Date</h5>
-                <p><%= task.due_date.strftime("%d-%b-%Y")%> <small class="text-muted"><%= task.due_date.strftime("%I:%M%p")%></small></p>
+                <p><%= task&.due_date.strftime("%d-%b-%Y")%> <small class="text-muted"><%= task&.due_date.strftime("%I:%M%p")%></small></p>
               </div>
             </div>
             <div class="col md-4">
@@ -54,19 +54,20 @@
                   </div>
                 </div>
             <%end%>
-            <% @task.comments&.each do |comment|%>
-              <div id="comment-add">
+            <div id="comment-add">
+              <% @task.comments&.each do |comment|%>
                 <%= render :partial => 'boards/comment', locals: {comment: comment} %>
-              </div>
-            <%end%>
+              <%end%>
+            </div>
           </div>
             <div class="tab-pane" id="profile-b1">
               <%= form_for(Document.new , remote: true)  do |f| %>
                 <%= f.file_field :file, id:"no-name"%>
-                <%= f.submit class:'btn btn-primary', value:'upload'%>
+                <%= f.hidden_field :task_id, :value => @task.id %>
+                <%= f.submit class:'btn btn-primary', value:'Upload'%>
               <% end %>
               <div id="file_upload">
-                <% @documents&.each do |document|%>
+                <% @task.documents&.each do |document|%>
                   <%= render :partial => 'boards/document', locals: {document: document} %>
                 <%end%>
               </div>

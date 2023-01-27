@@ -1,2 +1,6 @@
 $('#add-new-task-modal').modal('toggle');
 $('#task-list-<%=params[:task][:board_section_id]%>').append("<%= escape_javascript render(:partial => 'boards/task', :locals => {task: @task}) %>");
+$('#task-title').val('');
+$('#description').val('');
+$('#due_date').val('');
+$('#story_point').val('');

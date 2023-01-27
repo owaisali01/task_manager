@@ -30,6 +30,6 @@ class DocumentsController < ApplicationController
   end
 
   def document_params
-    params.require(:document).permit(:file)
+    params.require(:document).permit(:file, :task_id)
   end
 end

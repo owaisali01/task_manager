@@ -3,6 +3,7 @@ class CreateDocuments < ActiveRecord::Migration
     create_table :documents do |t|
       t.attachment :file
       t.timestamps
+      t.references :task
     end
   end
 end

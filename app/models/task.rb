@@ -5,4 +5,5 @@ class Task < ActiveRecord::Base
   has_many :assigned_tasks
   has_many :sub_tasks
   has_many :comments
+  has_many :documents
 end
