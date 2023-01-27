@@ -15,6 +15,7 @@ class TasksController < ApplicationController
   end
 
   def show
+    @documents = Document.all
     respond_to do |format|
       format.js
       format.html
@@ -46,9 +47,8 @@ class TasksController < ApplicationController
   def destroy
     @task.destroy
     respond_to do |format|
-      format.js 
+      format.js
       format.html
-   
     end
   end
 

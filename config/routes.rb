@@ -7,4 +7,5 @@ TaskManager::Application.routes.draw do
   resources :board_sections
   resources :tasks
   resources :comments
+  resources :documents
 end

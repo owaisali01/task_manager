@@ -41,3 +41,6 @@ gem "spring-commands-rspec"
 gem 'ransack'
 gem 'kaminari', '~> 0.15.0'
 gem 'rubocop-rails', require: false
+gem 'paperclip', '~> 3.5'
+gem 'remotipart', '~> 1.2'
+gem 'friendly_numbers'

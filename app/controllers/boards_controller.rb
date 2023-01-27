@@ -2,8 +2,6 @@ class BoardsController < ApplicationController
   before_action :set_board_object, only: %i[show edit update destroy]
   def index
     @boards = Board.all.page(params[:page])
-    binding.pry
-    @comments = Comment.all
   end
 
   def new

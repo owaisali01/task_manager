@@ -1,5 +1,5 @@
 class CommentsController < ApplicationController
-  before_action :set_comment_object, only: %i[:show,:edit,:update,:delete]
+  before_action :set_comment_object, only: %i[show edit update delete]
 
   def index
     @comments = Comment.all
@@ -24,11 +24,12 @@ class CommentsController < ApplicationController
   end
 
   private
+
   def set_comment_object
     @comment = Comment.find(params[:id])
   end
 
   def comment_params
-    params.require(:comment).permit(:id,:description,:task_id,:user_id)
+    params.require(:comment).permit(:id, :description, :task_id, :user_id)
   end
 end
