@@ -23,6 +23,7 @@ class TasksController < ApplicationController
   end
 
   def create
+
     @task = Task.new(task_params)
     respond_to do |format|
       if @task.save
@@ -55,7 +56,7 @@ class TasksController < ApplicationController
   private
 
   def task_params
-    params.require(:task).permit(:id, :name, :description, :status, :due_date, :story_point, :board_id, :board_section_id)
+    params.require(:task).permit(:id, :name, :description, :status, :due_date, :story_point, :board_id, :board_section_id, user_ids: [])
   end
 
   def set_task

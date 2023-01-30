@@ -76,6 +76,13 @@
                   <%=f.collection_select(:board_section_id, @board.board_sections, :id, :name , {prompt: true}, {class: 'form-control form-control-light', required: 'required'}) %>
                 </div>
               </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="Assigned To">Assigned To</label>
+                  <%=f.collection_select(:user_ids, User.all, :id, :email, { :prompt => "Please select"}, 
+                  { :multiple => true, :size => 5  , class: 'form-control form-control-light'}) %>
+                </div>
+              </div>
             </div>
               <%= f.submit class:'btn btn-primary'%>
               <% end %>

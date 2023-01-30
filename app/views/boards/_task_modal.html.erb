@@ -25,9 +25,11 @@
             <div class="col md-4">
               <div class="mb-4">
                 <h5>Asignee</h5>
-                  <a href="javascript:void(0);" data-bs-container="#tooltip-container" data-bs-toggle="tooltip" data-bs-placement="top" title="Mat Helme" class="d-inline-block">
+                <% @task.users.each do |user|%>
+                  <a href="javascript:void(0);" data-bs-container="#tooltip-container" data-bs-toggle="tooltip" data-bs-placement="top" title="<%= extract_name_from_email(user) if user.present? %>" class="d-inline-block">
                   <%= image_tag "avatar-6.jpg", class:"rounded-circle avatar-xs", alt:"friend"%>
                   </a>
+                <%end%>
               </div>
             </div>
           </div>
