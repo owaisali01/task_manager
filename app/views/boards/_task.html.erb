@@ -1,0 +1,29 @@
+<div class="card mb-0" >
+  <div class="card-body p-3" id='task<%=task.id%>'>
+    <small class="float-right text-muted"><%= task.due_date.strftime("%d-%b-%Y")%> <small class="text-muted"><%= task.due_date.strftime("%I:%M%p")%></small></small>
+    <span class="badge badge-secondary"><%= task.status%></span>
+    <h5 class="mt-2 mb-2">
+    <%= link_to task.name, task_path(task), remote: true %>
+    </h5>
+    <p class="mb-0">
+      <%= image_tag "avatar-2.jpg", class:"avatar-xs rounded-circle me-1", alt:"user-img"%>
+      <span class="align-middle">Robert Carlile</span>
+    </p></br>
+    <p class="mb-0">
+      <span class="text-nowrap mb-2 d-inline-block">
+      <b><i class="fa fa-commenting-o" aria-hidden="true"></i> <%= task.comments.count()%> Comments</b>
+      </span>
+    </p>
+    <div class="dropdown float-end">
+      <a href="#" class="dropdown-toggle text-muted arrow-none" data-toggle="dropdown" aria-expanded="false">
+          <i class="mdi mdi-dots-vertical font-18"></i>
+      </a>
+    </div>
+    <div class="mb-4">
+      <%= link_to task_path(task), method: :delete, remote: true, data: { confirm: 'Are you sure?' } do %>
+        <i class="fa fa-trash-o"></i> 
+      <% end %>
+    </div>
+  </div> <!-- end card-body -->
+</div>
+<div class="modal hide fade" id="myModal" tabindex="-1" role="dialog">Loading...</div>

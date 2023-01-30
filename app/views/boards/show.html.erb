@@ -1,137 +1,114 @@
 <div class="container-fluid ">
-<!-- start page title -->
-<div class="row">
+  <div class="row">
     <div class="col-12">
-        <div class="page-title-box">
-            <div class="page-title-right">
-                <ol class="breadcrumb m-0">
-                    <li class="breadcrumb-item"><a href="javascript: void(0);">Hyper</a></li>
-                    <li class="breadcrumb-item"><a href="javascript: void(0);">Apps</a></li>
-                    <li class="breadcrumb-item active">Kanban Board</li>
-                </ol>
-            </div>
-            <h4 class="page-title"><%= @board.name%> 
-              <a href="#" data-toggle="modal" data-target="#add-new-section-modal" class="btn btn-success btn-sm ml-3">Add New Section</a>
-              <a href="#" data-toggle="modal" data-target="#add-new-task-modal" class="btn btn-success btn-sm ml-3" >Add New Task</a>
-            </h4>
+      <div class="page-title-box">
+        <div class="page-title-right">
+          <ol class="breadcrumb m-0">
+              <li class="breadcrumb-item"><a href="javascript: void(0);">Hyper</a></li>
+              <li class="breadcrumb-item"><a href="javascript: void(0);">Apps</a></li>
+              <li class="breadcrumb-item active">Kanban Board</li>
+          </ol>
         </div>
-    </div>
-</div>     
-<!-- end page title -->
-<div class="row" >
-  <div class="col-12">
-    <div class="board">
-      <% @board_sections.each do |board_section|%>
-      <div class="tasks" data-plugin="dragula" data-containers="<%= @board.board_sections.map{|board_section| "task-list-#{board_section.id}"}%>">
-        <h5 class="mt-0 task-header"><%= board_section.name%></h5>
-        <div id= "task-list-<%= board_section.id%>" class="task-list-items">
-            <!-- Task Item -->
-            <% board_section.tasks&.each do |task|%>
-            <div class="card mb-0">
-                <div class="card-body p-3">
-                    <small class="float-right text-muted"><%= task.due_date%></small>
-                    <span class="badge badge-secondary"><%= task.status%></span>
-                    <h5 class="mt-2 mb-2">
-                        <a href="#" data-toggle="modal" data-target="#task-detail-modal" class="text-body"><%= task.name%></a>
-                    </h5>
-                    <p class="mb-0">
-                        <span class="text-nowrap mb-2 d-inline-block">
-                            <b>Description:<%= task.description%></b>
-                        </span>
-                    </p>
-                    <div class="dropdown float-right">
-                        <a href="#" class="dropdown-toggle text-muted arrow-none" data-toggle="dropdown" aria-expanded="false">
-                            <i class="mdi mdi-dots-vertical font-18"></i>
-                        </a>
-                    </div>
-                </div> <!-- end card-body -->
-            </div>
-              <%end%>
-              <!-- Task Item End -->
-          </div> 
-        <!-- end company-list-1-->
+          <h4 class="page-title"><%= @board.name%>
+            <a href="#" data-toggle="modal" data-target="#add-new-section-modal" class="btn btn-success btn-sm ml-3">Add New Section</a>
+            <a href="#" data-toggle="modal" data-target="#add-new-task-modal" class="btn btn-success btn-sm ml-3" >Add New Task</a>
+          </h4>
       </div>
-      <% end%>
     </div>
   </div>
+  <div class="row" >
+    <div class="col-12">
+      <div class="board" id="search-results">
+        <div class="row" >
+          <div class="col-12 board-sections-area">
+            <%= render :partial => "boards/results", :locals => {board_sections: @board_sections, board: @board} %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade task-modal-content" id="add-new-task-modal" tabindex="-1" role="dialog" aria-labelledby="NewTaskModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title" id="NewTaskModalLabel">Create New Task</h4>
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        </div>
+        <div class="modal-body">
+          <%= form_for Task.new , remote: true do |f|%>
+            <div class="row">
+              <div class="col-md-12">
+                <label for="task-title">Title</label>
+                <%= f.text_field :name, class:'form-control form-control-light', id:'task-title', placeholder:'Enter title' %>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-12">
+                <label for="Description">Description</label>
+                <%= f.text_area :description, class:'form-control form-control-light', id:'description', placeholder:'Enter Description' %>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="Due Date">Due Date</label>
+                  <%= f.date_field :due_date, class:'form-control form-control-light', id:'due_date', placeholder:'Enter Date' %>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="story_point">Current Board</label></br>
+                  <label for="story_point"><%= @board.name%></label>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="Story Point">Story Point</label>
+                  <%= f.text_field :story_point, class:'form-control form-control-light', id:'story_point', placeholder:'Story Point' %>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="Board Section">Select Board Section</label>
+                  <%=f.collection_select(:board_section_id, @board.board_sections, :id, :name , {prompt: true}, {class: 'form-control form-control-light', required: 'required'}) %>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="Assigned To">Assigned To</label>
+                  <%=f.collection_select(:user_ids, User.all, :id, :email, { :prompt => "Please select"}, 
+                  { :multiple => true, :size => 5  , class: 'form-control form-control-light'}) %>
+                </div>
+              </div>
+            </div>
+              <%= f.submit class:'btn btn-primary'%>
+              <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal fade task-modal-content" id="add-new-section-modal" tabindex="-1" role="dialog" aria-labelledby="NewTaskModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title" id="NewTaskModalLabel">Create New Board Section</h4>
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        </div>
+        <div class="modal-body">
+          <%= form_for([@board, BoardSection.new], remote: true) do |f|%>
+            <div class="row">
+              <div class="col-md-12">
+                <label for="task-title">Title</label>
+                <%= f.text_field :name, class:'form-control form-control-light', id:'board-section-title', placeholder:'Enter title' %> 
+              </div>
+            </div>
+              <%= f.submit class:'btn btn-primary'%>
+          <% end %>
+        </div>
+      </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+  </div><!-- /.modal -->
 </div>
-<!--  Add new task modal -->
-        <div class="modal fade task-modal-content" id="add-new-task-modal" tabindex="-1" role="dialog" aria-labelledby="NewTaskModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered modal-lg">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h4 class="modal-title" id="NewTaskModalLabel">Create New Task</h4>
-                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                    </div>
-                    <div class="modal-body">
-                        <%= form_for Task.new do |f|%>
-                              <div class="row">
-                                <div class="col-md-12">
-                                  <label for="task-title">Title</label>
-                                  <%= f.text_field :name, class:"form-control form-control-light", id:"task-title", placeholder:"Enter title" %> 
-                                </div>
-                              </div>
-
-                              <div class="row">
-                                <div class="col-md-12">
-                                  <label for="Description">Description</label>
-                                  <%= f.text_area :description, class:"form-control form-control-light", id:"description", placeholder:"Enter Description" %> 
-                                </div>
-                              </div>
-                              <div class="row">
-                                <div class="col-md-6">
-                                  <div class="form-group">
-                                    <label for="Due Date">Due Date</label>
-                                    <%= f.date_field :due_date, class:"form-control form-control-light", id:"due_date", placeholder:"Enter Date" %>
-                                  </div>
-                                </div>
-                                <div class="col-md-6">
-                                  <div class="form-group">
-                                    <label for="story_point">Current Board</label></br>
-                                    <label for="story_point"><%= @board.name%></label>   
-                                  </div>
-                                </div>
-                              </div> 
-
-                              <div class="row">
-                                <div class="col-md-6">
-                                  <div class="form-group">
-                                    <label for="Story Point">Story Point</label>
-                                    <%= f.text_field :story_point, class:"form-control form-control-light", id:"story_point", placeholder:"Story Point" %>
-                                  </div>
-                                </div>
-                                <div class="col-md-6">
-                                  <div class="form-group">
-                                    <label for="Board Section">Select Board Section</label>
-                                    <%=f.collection_select(:board_section_id, @board.board_sections, :id, :name , {prompt: true}, {class: 'form-control form-control-light', required: "required"}) %>
-                                  </div>
-                                </div>
-                              </div> 
-                              <%= f.submit class:"btn btn-primary"%>
-												<% end %>
-                    </div>	
-                </div><!-- /.modal-content -->
-            </div><!-- /.modal-dialog -->
-        </div><!-- /.modal -->
-        <!--  Add new section modal -->
-        <div class="modal fade task-modal-content" id="add-new-section-modal" tabindex="-1" role="dialog" aria-labelledby="NewTaskModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered modal-lg">
-                <div class="modal-content">
-                    <div class="modal-header">
-                      <h4 class="modal-title" id="NewTaskModalLabel">Create New Board Section</h4>
-                      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                    </div>
-                    <div class="modal-body">
-                      <%= form_for([@board, BoardSection.new]) do |f|%>
-                        <div class="row">
-                          <div class="col-md-12">
-                            <label for="task-title">Title</label>
-                            <%= f.text_field :name, class:"form-control form-control-light", id:"task-title", placeholder:"Enter title" %> 
-                          </div>
-                        </div>
-                          <%= f.submit class:"btn btn-primary"%>
-                      <% end %>
-                    </div>	
-                </div><!-- /.modal-content -->
-            </div><!-- /.modal-dialog -->
-        </div><!-- /.modal -->
