@@ -173,6 +173,7 @@
             <i class="dripicons-gear noti-icon"></i>
           </a>
         </li>
+        <% if user_signed_in?%>
         <li class="dropdown notification-list">
           <a class="nav-link dropdown-toggle nav-user arrow-none mr-0" data-toggle="dropdown" id="topbar-userdrop" href="#" role="button" aria-haspopup="true"
             aria-expanded="false">
@@ -206,7 +207,10 @@
               </a>
               <a href="javascript:void(0);" class="dropdown-item notify-item">
                 <i class="mdi mdi-logout mr-1"></i>
-                <span>Logout</span>
+                <%= link_to "Log out", destroy_user_session_path, method: :delete%>
+                <% else %>
+                <%= link_to "Sign In", new_user_session_path %>
+                <% end %>
               </a>
             </div>
         </li>
@@ -220,7 +224,7 @@
     </a>
       <div class="app-search dropdown">
         <%= search_form_for @q, remote: true do |f| %>
-          <%= f.label :name_cont %>
+          <%= f.label :Search%>
           <%= f.search_field :name_cont %>
           <%= f.hidden_field "board", :value => params[:id] %>
           <%= f.submit %>

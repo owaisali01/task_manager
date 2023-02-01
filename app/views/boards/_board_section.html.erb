@@ -2,7 +2,7 @@
   <h5 class="mt-0 task-header"><%= board_section.name%></h5>
   <div id= 'task-list-<%= board_section.id%>' class='task-list-items'>
     <% board_section&.tasks&.each do |task|%>
-      <%= render :partial => 'boards/task', locals: {task: task, board_section: board_section} %>
+      <%= render :partial => 'boards/task', locals: {task: task} %>
     <%end%>
   </div> 
 </div>

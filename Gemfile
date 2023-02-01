@@ -44,3 +44,4 @@ gem 'rubocop-rails', require: false
 gem 'paperclip', '~> 3.5'
 gem 'remotipart', '~> 1.2'
 gem 'friendly_numbers'
+gem 'cancancan', '~> 1.17'

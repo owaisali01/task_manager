@@ -27,7 +27,6 @@
       </div>
     </div>
   </div>
-
   <div class="modal fade task-modal-content" id="add-new-task-modal" tabindex="-1" role="dialog" aria-labelledby="NewTaskModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-lg">
       <div class="modal-content">
@@ -79,9 +78,12 @@
               <div class="col-md-6">
                 <div class="form-group">
                   <label for="Assigned To">Assigned To</label>
-                  <%=f.collection_select(:user_ids, User.all, :id, :email, { :prompt => "Please select"}, 
-                  { :multiple => true, :size => 5  , class: 'form-control form-control-light'}) %>
+                  <%=f.collection_select(:user_ids, User.all, :id, :email, { prompt: true},
+                  { :multiple => true , class: 'form-control form-control-light'}) %>
                 </div>
+              </div>
+              <div class="field">
+                <%= f.hidden_field :user_id, :value => current_user.id %>
               </div>
             </div>
               <%= f.submit class:'btn btn-primary'%>

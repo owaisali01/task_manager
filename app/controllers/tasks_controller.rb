@@ -1,4 +1,5 @@
 class TasksController < ApplicationController
+  load_and_authorize_resource
   before_action :set_task, only: %i[show edit update destroy]
 
   def index
@@ -23,7 +24,6 @@ class TasksController < ApplicationController
   end
 
   def create
-
     @task = Task.new(task_params)
     respond_to do |format|
       if @task.save
@@ -46,6 +46,7 @@ class TasksController < ApplicationController
   end
 
   def destroy
+    authorize! :destroy, @task
     @task.destroy
     respond_to do |format|
       format.js
@@ -56,7 +57,7 @@ class TasksController < ApplicationController
   private
 
   def task_params
-    params.require(:task).permit(:id, :name, :description, :status, :due_date, :story_point, :board_id, :board_section_id, user_ids: [])
+    params.require(:task).permit(:id, :name, :description, :status, :due_date, :story_point, :board_id, :board_section_id,:user_id, user_ids: [])
   end
 
   def set_task
