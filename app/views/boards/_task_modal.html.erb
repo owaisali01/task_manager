@@ -1,0 +1,82 @@
+<div class="modal fade task-modal-content" id="task-detail-modal" tabindex="-1" role="dialog" aria-labelledby="NewTaskModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title" id="NewTaskModalLabel"><%= task.name.capitalize()%></h4>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+      </div>
+      <div class="modal-body">
+        <div class="p-2">
+          <h5 class="mt-0">Description</h5>
+          <p class="text-muted mb-4"><%= task.description%></p>
+          <div class="row">
+              <div class="col md-4">
+                <div class="mb-4">
+                  <h5>Created at</h5>
+                    <p><%= task&.created_at.strftime("%d-%b-%Y")%> <small class="text-muted"><%= task&.created_at.strftime("%I:%M%p")%></small></p>
+                </div>
+              </div>
+              <div class="col md-4">
+                <div class="mb-4">
+                  <h5>Due Date</h5>
+                  <p><%= task&.due_date.strftime("%d-%b-%Y")%> <small class="text-muted"><%= task&.due_date.strftime("%I:%M%p")%></small></p>
+                </div>
+              </div>
+              <div class="col md-4">
+                <div class="mb-4">
+                  <h5>Asignee</h5>
+                  <% @task.users.each do |user|%>
+                    <a href="javascript:void(0);" data-bs-container="#tooltip-container" data-bs-toggle="tooltip" data-bs-placement="top" title="<%= extract_name_from_email(user) if user.present? %>" class="d-inline-block">
+                    <%= image_tag "avatar-6.jpg", class:"rounded-circle avatar-xs", alt:"friend"%>
+                    </a>
+                  <%end%>
+                </div>
+              </div>
+            </div>
+            <ul class="nav nav-tabs nav-bordered mb-3">
+              <li class="nav-item">
+                <a href="#home-b1" data-toggle="tab" aria-expanded="false" class="nav-link active">
+                    Comments
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="#profile-b1" data-toggle="tab" aria-expanded="true" class="nav-link">
+                    Files
+                </a>
+              </li>
+            </ul>
+          <div class="tab-content">
+            <div class="tab-pane show active" id="home-b1">
+              <%= form_for Comment.new, remote: true do |f|%>
+                <%= f.text_area :description, class:'form-control form-control-light mb-2', id:'comment-body', placeholder:'Write message', rows:'3' %>
+                <%= f.hidden_field :task_id, :value => @task.id %>
+                  <div class="text-end">
+                    <div class="btn-group mb-2 ms-2 d-none d-sm-inline-block">
+                      <%= f.submit class:'btn btn-primary'%>
+                    </div>
+                  </div>
+              <%end%>
+              <div id="comment-add">
+                <% @task.comments&.each do |comment|%>
+                  <%= render :partial => 'boards/comment', locals: {comment: comment} %>
+                <%end%>
+              </div>
+            </div>
+              <div class="tab-pane" id="profile-b1">
+                <%= form_for(Document.new , remote: true)  do |f| %>
+                  <%= f.file_field :file, id:"no-name"%>
+                  <%= f.hidden_field :task_id, :value => @task.id %>
+                  <%= f.submit class:'btn btn-primary', value:'Upload'%>
+                <% end %>
+                <div id="file_upload">
+                  <% @task.documents&.each do |document|%>
+                    <%= render :partial => 'boards/document', locals: {document: document} %>
+                  <%end%>
+                </div>
+              </div>
+          </div>
+        </div>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->

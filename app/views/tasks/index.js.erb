@@ -1,0 +1,2 @@
+$("#blogpost-table").hide();
+$("#search-results").html("<%= escape_javascript(render :partial => 'boards/results', locals: {board_sections: @board_sections, board: @board}) %>");
