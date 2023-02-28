@@ -1,11 +1,13 @@
 TaskManager::Application.routes.draw do
   namespace :api do
     namespace :v1 do
-      resources :boards, only: [:index, :show, :create, :update, :destroy]
-      resources :board_sections, only: [:index, :show, :create, :update, :destroy]
-      resources :tasks, only: [:index, :show, :create, :update, :destroy] do
-        member do
-          post 'assign_task'
+      resources :boards, only: [:index, :show, :create, :update, :destroy] do
+        resources :board_sections, only: [:index, :show, :create, :update, :destroy] do
+          resources :tasks, only: [:index, :show, :create, :update, :destroy] do
+            member do
+              post 'assign_task'
+            end
+          end
         end
       end
     end
