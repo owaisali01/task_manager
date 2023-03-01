@@ -1,3 +1,3 @@
 module DocumentsHelper
-	def file_format; end
+  def file_format; end
 end
