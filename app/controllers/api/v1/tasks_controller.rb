@@ -4,7 +4,7 @@ module Api
   module V1
     class TasksController < ActionController::Base
       before_action :set_task, only: %i[show update destroy assign_task]
-      before_action :set_board_section_object, only: %i[create update]
+      before_action :set_board_section_object, only: %i[create]
       before_action :set_user, only: [:assign_task]
 
       def index

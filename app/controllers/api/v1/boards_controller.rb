@@ -4,7 +4,7 @@ module Api
   module V1
     class BoardsController < ActionController::Base
       before_action :set_board_object, only: %i[show update destroy]
-      before_action :set_user_object, only: %i[create update]
+      before_action :set_user_object, only: %i[create]
 
       def index
         @boards = Board.all

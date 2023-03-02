@@ -4,7 +4,7 @@ module Api
   module V1
     class BoardSectionsController < ActionController::Base
       before_action :set_board_section_object, only: %i[show edit update delete]
-      before_action :set_board_object, only: %i[create update]
+      before_action :set_board_object, only: %i[create]
 
       def index
         @boardsections = BoardSection.all
