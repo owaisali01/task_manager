@@ -64,11 +64,13 @@ module Api
 
       def set_board_section_object
         @boardsection = BoardSection.find_by(id: task_params[:board_section_id])
-        render json: {message: "Board section not found"}, status: :unprocessable_entity unless @boardsection.present?
+        render json: {message: "Board section not found"}, status: :unprocessable_entity 
+        unless @boardsection.present?
       end
 
       def task_params
-        params.require(:task).permit(:id, :name, :description, :status, :due_date, :story_point, :board_section_id)
+        params.require(:task).permit(:id, :name, :description, :status, :due_date, :story_point,
+                                     :board_section_id)
       end
     end
   end
