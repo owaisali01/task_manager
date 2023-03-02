@@ -1,0 +1,9 @@
+class CreateDocuments < ActiveRecord::Migration
+  def change
+    create_table :documents do |t|
+      t.attachment :file
+      t.timestamps
+      t.references :task
+    end
+  end
+end
