@@ -35,7 +35,7 @@ module Api
       def destroy
         @boardsection = BoardSection.find(params[:id])
         if @boardsection.destroy
-          render json: {message: "board section successfully deleted"}, status: 200
+          render json: {message: "Board section successfully deleted"}, status: 200
         else
           render status: :bad_request, errors: @boardsection.errors.full_messages
         end

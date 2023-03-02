@@ -35,7 +35,7 @@ module Api
 
       def destroy
         if @task.destroy
-          render json: {message: "task successfully deleted"}, status: 200
+          render json: {message: "Task successfully deleted"}, status: 200
         else
           render status: :bad_request, errors:  @task.error.message
         end
@@ -44,9 +44,9 @@ module Api
       def assign_task
         @assign_user = @user.assigned_tasks.new(task_id: params[@task], user_id: params[@user])
         if @assign_user.save
-          render json: {message: "task Assigned successfully"}, status: 200
+          render json: {message: "Task Assigned successfully"}, status: 200
         else
-          render json: {message: "task cannot be assigned"}
+          render json: {message: "Task cannot be assigned"}
         end
       end
 
@@ -54,12 +54,12 @@ module Api
 
       def set_task
         @task = Task.find_by(id: params[:id])
-        render json: {message: "task not found"}, status: :unprocessable_entity unless @task.present?
+        render json: {message: "Task not found"}, status: :unprocessable_entity unless @task.present?
       end
 
       def set_user
         @user = User.find_by(id: params[:id])
-            render json: {message: "user not found"}, status: :unprocessable_entity unless @user.present?
+            render json: {message: "User not found"}, status: :unprocessable_entity unless @user.present?
       end
 
       def set_board_section_object

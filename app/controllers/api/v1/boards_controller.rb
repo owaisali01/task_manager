@@ -34,7 +34,7 @@ module Api
 
       def destroy
         if @board.destroy
-          render json: {message: "board successfully deleted"}, status: 200
+          render json: {message: "Board successfully deleted"}, status: 200
         else
           render status: :unprocessable_entity, errors:  @board.errors.full_messages
         end
@@ -49,7 +49,7 @@ module Api
 
       def set_user_object
         @user = User.find_by(id: board_params[:user_id])
-        render json: {message: "user not found"}, status: :unprocessable_entity unless @user.present?
+        render json: {message: "User not found"}, status: :unprocessable_entity unless @user.present?
       end
 
       def board_params
