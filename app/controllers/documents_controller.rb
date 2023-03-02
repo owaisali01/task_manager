@@ -1,32 +1,22 @@
 class DocumentsController < ApplicationController
-  before_action :set_document_object, only: %i[show edit update delete]
-
-  def index
-    @documents = Document.all
-  end
-
-  def new
-    @document = Document.new
-  end
-
-  def show; end
+  before_action :set_task, only: %i[create]
 
   def create
-    @document = Document.new(document_params)
-    respond_to do |format|
+    @document = @task.documents.new(document_params)
       if @document.save
+        respond_to do |format|
         format.html { redirect_to request.referer }
         format.js
+        end
       else
         render :new
       end
-    end
   end
 
   private
 
-  def set_document_object
-    @document = Document.find(params[:id])
+  def set_task
+    @task = Task.find(params[:document][:task_id])
   end
 
   def document_params

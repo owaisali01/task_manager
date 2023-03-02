@@ -1,18 +1,20 @@
 class TasksController < ApplicationController
   load_and_authorize_resource
   before_action :set_task, only: %i[show edit update destroy]
+  before_action :set_board_section, only: %i[new create]
 
   def index
     @board = Board.find(params[:q][:board])
     @q = Task.ransack(params[:q])
+    @tasks = @q.result
     respond_to do |format|
-      @board_sections = BoardSection.where(id: @q.result.pluck(:board_section_id))
+      @board_sections = BoardSection.where(id: @tasks.pluck(:board_section_id))
       format.js
     end
   end
 
   def new
-    @task = Task.new
+    @task = @boardsection.tasks.new
   end
 
   def show
@@ -24,15 +26,15 @@ class TasksController < ApplicationController
   end
 
   def create
-    @task = Task.new(task_params)
-    respond_to do |format|
+    @task = @boardsection.tasks.new(task_params)
       if @task.save
+        respond_to do |format|
         format.html { redirect_to request.referer }
         format.js
+        end
       else
         render :new
       end
-    end
   end
 
   def edit; end
@@ -56,12 +58,17 @@ class TasksController < ApplicationController
 
   private
 
-  def task_params
-    params.require(:task).permit(:id, :name, :description, :status, :due_date, :story_point,
-                                 :board_id, :board_section_id,:user_id, user_ids: [])
-  end
-
   def set_task
     @task = Task.find(params[:id])
   end
+
+  def set_board_section
+    @boardsection = BoardSection.find(params[:task][:board_section_id])
+  end
+
+  def task_params
+    params.require(:task).permit(:id, :name, :description, :status, :due_date, :story_point,
+                                 :user_id, user_ids: [])
+  end
+
 end

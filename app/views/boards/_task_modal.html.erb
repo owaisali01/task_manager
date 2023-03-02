@@ -58,7 +58,7 @@
               <%end%>
               <div id="comment-add">
                 <% @task.comments&.each do |comment|%>
-                  <%= render :partial => 'boards/comment', locals: {comment: comment} %>
+                  <%= render :partial => 'comments/comment', locals: {comment: comment} %>
                 <%end%>
               </div>
             </div>
@@ -70,7 +70,7 @@
                 <% end %>
                 <div id="file_upload">
                   <% @task.documents&.each do |document|%>
-                    <%= render :partial => 'boards/document', locals: {document: document} %>
+                    <%= render :partial => 'documents/document', locals: {document: document} %>
                   <%end%>
                 </div>
               </div>

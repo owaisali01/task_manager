@@ -15,14 +15,14 @@ class BoardsController < ApplicationController
 
   def create
     @board = Board.new(board_params)
-    respond_to do |format|
       if @board.save
+        respond_to do |format|
         format.html { redirect_to root_path }
         format.js
+        end
       else
         render :new
       end
-    end
   end
 
   def edit; end

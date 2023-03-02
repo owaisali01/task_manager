@@ -1,35 +1,26 @@
 class CommentsController < ApplicationController
-  before_action :set_comment_object, only: %i[show edit update delete]
-
-  def index
-    @comments = Comment.all
-  end
-
-  def new
-    @comment = @task.comments.build
-  end
-
-  def show; end
+  before_action :set_task, only: %i[new create]
 
   def create
-    @comment = Comment.new(comment_params)
-    respond_to do |format|
+    @comment = @task.comments.new(comment_params)
       if @comment.save
+        respond_to do |format|
         format.html { redirect_to request.referer }
         format.js
+        end
       else
         render :new
       end
-    end
   end
 
   private
 
-  def set_comment_object
-    @comment = Comment.find(params[:id])
+  def set_task
+    @task = Task.find(params[:comment][:task_id])
   end
 
   def comment_params
     params.require(:comment).permit(:id, :description, :task_id, :user_id)
   end
+
 end

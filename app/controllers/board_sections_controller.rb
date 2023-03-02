@@ -14,14 +14,14 @@ class BoardSectionsController < ApplicationController
 
   def create
     @board_section = @board.board_sections.build(board_section_params)
-    respond_to do |format|
       if @board_section.save
+        respond_to do |format|
         format.js
         format.html { redirect_to request.referer }
+        end
       else
         render :new
       end
-    end
   end
 
   def edit; end

@@ -26,7 +26,7 @@
       <tbody class="board-add">
       <h5><%= paginate @boards %></h5>
         <% @boards.each do |board|%>
-          <%= render :partial => 'boards/boards', locals: {board: board} %>
+          <%= render :partial => 'boards/board', locals: {board: board} %>
         </tr>
         <%end%>
       </tbody>
