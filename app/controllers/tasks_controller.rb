@@ -18,7 +18,7 @@ class TasksController < ApplicationController
   end
 
   def show
-    @documents = Document.all
+    @documents = @task.documents.all
     respond_to do |format|
       format.js
       format.html
