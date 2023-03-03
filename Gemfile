@@ -26,6 +26,7 @@ gem 'thor', '0.19.1'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 1.2'
 gem 'devise'
+gem 'doorkeeper', '2.0'
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
   gem 'sdoc', require: false
@@ -47,3 +48,4 @@ gem 'friendly_numbers'
 gem 'cancancan', '~> 1.17'
 gem 'rack-cors'
 gem 'active_model_serializers', '~> 0.10.0'
+gem 'foreigner'
