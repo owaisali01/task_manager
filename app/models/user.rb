@@ -1,16 +1,13 @@
 class User < ActiveRecord::Base
-  # Include default devise modules. Others available are:
-  # :confirmable, :lockable, :timeoutable and :omniauthable
-  has_many :boards
-  has_many :assigned_tasks
-  has_many :tasks, through: :assigned_tasks
-  has_many :comments
   devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :trackable, :validatable
+  :recoverable, :rememberable, :validatable
 
-def authenticate(email, password)
-  user = User.find_for_authentication(email: email)
-  user.try(:valid_password?, password) ? user : nil
+validates :email, format: URI::MailTo::EMAIL_REGEXP
+
+# the authenticate method from devise documentation
+def self.authenticate(email, password)
+user = User.find_for_authentication(email: email)
+user&.valid_password?(password) ? user : nil
 end
 
 end

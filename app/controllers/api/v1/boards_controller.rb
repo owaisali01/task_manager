@@ -3,9 +3,9 @@
 module Api
   module V1
     class BoardsController < ActionController::Base
-      before_action :doorkeeper_authorize!
+      before_action :doorkeeper_authorize!, unless: :user_signed_in?
       before_action :set_board_object, only: %i[show update destroy]
-      before_action :set_user_object, only: %i[create]
+      before_action :set_user_object, only: %i[create show]
 
       def index
         @boards = Board.all
@@ -49,8 +49,11 @@ module Api
       end
 
       def set_user_object
-        @user = User.find_by(id: board_params[:user_id])
-        render json: {message: "User not found"}, status: :unprocessable_entity unless @user.present?
+        @current_user ||= if doorkeeper_token
+          User.find(doorkeeper_token.resource_owner_id)
+        else
+          warden.authenticate(scope: :user)
+        end
       end
 
       def board_params

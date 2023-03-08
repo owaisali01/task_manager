@@ -3,7 +3,7 @@
 module Api
   module V1
     class TasksController < ActionController::Base
-      before_action :doorkeeper_authorize!
+      before_action :doorkeeper_authorize!, unless: :user_signed_in?
       before_action :set_task, only: %i[show update destroy assign_task]
       before_action :set_board_section_object, only: %i[create]
       before_action :set_user, only: [:assign_task]
@@ -59,8 +59,11 @@ module Api
       end
 
       def set_user
-        @user = User.find_by(id: params[:id])
-            render json: {message: "User not found"}, status: :unprocessable_entity unless @user.present?
+        @current_user ||= if doorkeeper_token
+          User.find(doorkeeper_token.resource_owner_id)
+        else
+          warden.authenticate(scope: :user)
+        end
       end
 
       def set_board_section_object
